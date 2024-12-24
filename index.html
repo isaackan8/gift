@@ -84,132 +84,132 @@
             margin: 30px 0;
             cursor: default;
         }
+        .progress-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 600px;
+            height: 30px;
+            background: rgba(26, 26, 26, 0.8);
+            border-radius: 15px;
+            border: 2px solid #ffd700;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(45deg, #ffd700, #ffa500);
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .firework {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffd700, #ff6b6b);
+            animation: explode 1s ease-out forwards;
+            pointer-events: none;
+        }
+        .congratulations {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffd700;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 24px;
+            z-index: 1000;
+            animation: bounce 0.5s ease infinite alternate;
+        }
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(20);
+                opacity: 0;
+            }
+        }
+        @keyframes bounce {
+            from {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+        .lottery-text {
+            text-align: center;
+            color: #ffd700;
+            margin: 10px 0;
+            font-size: 1.2em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body>
     <h1>100個喜歡珍珠刮刮樂</h1>
+    <div class="lottery-text">高達100次中獎機會!</div>
+    <div class="lottery-text">每一格都有驚喜!</div>
+    <div class="lottery-text">刮開看看您的好運!</div>
     <div class="grid" id="numberGrid"></div>
     <div class="message" id="message"></div>
+    <div class="progress-bar">
+        <div class="progress-fill"></div>
+        <div class="progress-text">已刮開: 0/100</div>
+    </div>
 
     <script>
         const messages = [
-            "1我中意珍珠陣味！",
-            "2珍珠一啖砂糖一啖屎！", 
-            "3珍珠接受我不完美！",
-            "4珍珠似sio樣！",
-            "5珍珠知道我所有野！",
-            "6我同珍珠有經歷！",
-            "7珍珠陪我！",
-            "8珍珠接受我會生氣！",
-            "9珍珠陪我睇醫生！",
-            "10珍珠想哄我！"
-            "11珍珠夠eeee！",
-            "12珍珠好好吃喔！", 
-            "13沒有珍珠的奶茶不完整！",
-            "14珍珠是我的快樂泉源！",
-            "15今天也要喝珍奶！",
-            "16珍珠Q彈有嚼勁！",
-            "17珍珠是我的生命！",
-            "18沒有珍珠我會生氣！",
-            "19珍珠是我的維他命！",
-            "20珍珠使我快樂！"
-            "21我超愛珍珠奶茶！",
-            "22珍珠好好吃喔！", 
-            "23沒有珍珠的我不完整！",
-            "24珍珠每晚都打俾我！",
-            "25珍珠戀愛第一！",
-            "26珍珠幫我拎茄醬！",
-            "27珍珠同我識的人SOCIAL！",
-            "28珍珠陪我上刀山落油鍋！",
-            "29珍珠陪我玩！",
-            "30珍珠無條件支持我興趣！"
-            "31我超愛珍珠做地圖人！",
-            "32珍珠好PLANNING！", 
-            "33珍珠陪我睇無聊YOUTUBE！",
-            "34珍珠陪我跳！",
-            "35唔理我RUN得慢！",
-            "36珍珠帶我去旅行！", 
-            "37珍珠好環保！",
-            "38沒有珍珠我會焦慮！",
-            "39珍珠是我的自信！",
-            "40珍珠使我感到愛！"
-            "41我超愛珍珠！",
-            "42珍珠好好食喔:P！", 
-            "43珍珠好有logic除了我！",
-            "44珍珠同我咩都傾！",
-            "45今天也要喝珍奶！",
-            "46珍珠誠實！",
-            "47珍珠PRETTY！",
-            "48沒有珍珠我會悶！",
-            "49珍珠是自然的！",
-            "50珍珠會做善事！"
-            "51珍珠好正！",
-            "52珍珠記得我的東西！", 
-            "53會煮野我食！",
-            "54珍珠鼓勵我夢想！",
-            "55今天也抱抱！",
-            "56珍珠善良！",
-            "57珍珠歌聲好聽！",
-            "58珍珠有音樂才華！",
-            "59珍珠是我的維他命！",
-            "60珍珠願意去試！"
-            "61體貼!!！",
-            "62珍珠肯陪婆婆吃飯！", 
-            "63珍珠中意食！",
-            "64珍珠有肉肉！",
-            "65珍珠好攬！",
-            "66珍珠個嘴好搞笑！",
-            "67珍珠滑稽！",
-            "68珍珠會跟住我！",
-            "69珍珠有為我改變！",
-            "70crystal同pearl我都中意！"
-            "71珍珠想俾我家！",
-            "72珍珠介紹朋友俾我！", 
-            "73珍珠會原諒我！",
-            "74珍珠會搞笑！",
-            "75今天也要喝珍奶！",
-            "76珍珠有時好Q！",
-            "77珍珠係處女座！",
-            "78珍珠會生氣！",
-            "79珍珠是我隻雀！",
-            "80珍珠係嬲爆爆媽媽！"
-            "81珍珠想有未來！",
-            "82小小賤！", 
-            "83珍珠好多花名！",
-            "84珍珠彈琴好聽！",
-            "85珍珠會課金！",
-            "86珍珠係一個好人！",
-            "87珍珠是我的生命！",
-            "88珍珠今日先26歲！",
-            "89珍珠似一隻芝娃娃！",
-            "90珍珠會帶手信俾我！"
-            "91珍珠超愛珍珠奶茶！",
-            "92珍珠有儀式感！", 
-            "93珍珠執著！",
-            "94珍珠愛我！",
-            "95珍珠無條件愛我！",
-            "96珍珠會算命！",
-            "97珍珠口才好！",
-            "98珍珠識好多語言！",
-            "99珍珠會搞呢d小情趣！",
-            "100我愛珍珠！"
+            "1我中意珍珠陣味！", "2珍珠一啖砂糖一啖屎！", "3珍珠接受我不完美！", "4珍珠似sio樣！", 
+            "5珍珠知道我所有野！", "6我同珍珠有經歷！", "7珍珠陪我！", "8珍珠接受我會生氣！",
+            "9珍珠陪我睇醫生！", "10珍珠想哄我！", "11珍珠夠eeee！", "12珍珠好好吃喔！",
+            "13沒有珍珠的奶茶不完整！", "14珍珠是我的快樂泉源！", "15今天也要喝珍奶！", "16珍珠Q彈有嚼勁！",
+            "17珍珠是我的生命！", "18沒有珍珠我會生氣！", "19珍珠是我的維他命！", "20珍珠使我快樂！",
+            "21我超愛珍珠奶茶！", "22珍珠好好吃喔！", "23沒有珍珠的我不完整！", "24珍珠每晚都打俾我！",
+            "25珍珠戀愛第一！", "26珍珠幫我拎茄醬！", "27珍珠同我識的人SOCIAL！", "28珍珠陪我上刀山落油鍋！",
+            "29珍珠陪我玩！", "30珍珠無條件支持我興趣！", "31我超愛珍珠做地圖人！", "32珍珠好PLANNING！",
+            "33珍珠陪我睇無聊YOUTUBE！", "34珍珠陪我跳！", "35唔理我RUN得慢！", "36珍珠帶我去旅行！",
+            "37珍珠好環保！", "38沒有珍珠我會焦慮！", "39珍珠是我的自信！", "40珍珠使我感到愛！",
+            "41我超愛珍珠！", "42珍珠好好食喔:P！", "43珍珠好有logic除了我！", "44珍珠同我咩都傾！",
+            "45今天也要喝珍奶！", "46珍珠誠實！", "47珍珠PRETTY！", "48沒有珍珠我會悶！",
+            "49珍珠是自然的！", "50珍珠會做善事！", "51珍珠好正！", "52珍珠記得我的東西！",
+            "53會煮野我食！", "54珍珠鼓勵我夢想！", "55今天也抱抱！", "56珍珠善良！",
+            "57珍珠歌聲好聽！", "58珍珠有音樂才華！", "59珍珠是我的維他命！", "60珍珠願意去試！",
+            "61體貼!!！", "62珍珠肯陪婆婆吃飯！", "63珍珠中意食！", "64珍珠有肉肉！",
+            "65珍珠好攬！", "66珍珠個嘴好搞笑！", "67珍珠滑稽！", "68珍珠會跟住我！",
+            "69珍珠有為我改變！", "70crystal同pearl我都中意！", "71珍珠想俾我家！", "72珍珠介紹朋友俾我！",
+            "73珍珠會原諒我！", "74珍珠會搞笑！", "75今天也要喝珍奶！", "76珍珠有時好Q！",
+            "77珍珠係處女座！", "78珍珠會生氣！", "79珍珠是我隻雀！", "80珍珠係嬲爆爆媽媽！",
+            "81珍珠想有未來！", "82小小賤！", "83珍珠好多花名！", "84珍珠彈琴好聽！",
+            "85珍珠會課金！", "86珍珠係一個好人！", "87珍珠是我的生命！", "88珍珠今日先26歲！",
+            "89珍珠似一隻芝娃娃！", "90珍珠會帶手信俾我！", "91珍珠超愛珍珠奶茶！", "92珍珠有儀式感！",
+            "93珍珠執著！", "94珍珠愛我！", "95珍珠無條件愛我！", "96珍珠會算命！",
+            "97珍珠口才好！", "98珍珠識好多語言！", "99珍珠會搞呢d小情趣！", "100我愛珍珠！"
         ];
 
+        let scratchedCount = 0;
         const numberMessages = {};
 
         function shuffleMessages() {
-            let allMessages = [];
-            for(let i = 0; i < 10; i++) {
-                allMessages = allMessages.concat([...messages]);
-            }
-            
-            for(let i = allMessages.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [allMessages[i], allMessages[j]] = [allMessages[j], allMessages[i]];
-            }
-            
-            for(let i = 1; i <= 100; i++) {
-                numberMessages[i] = allMessages[i-1];
+            const shuffled = [...messages].sort(() => Math.random() - 0.5);
+            for(let i = 0; i < 100; i++) {
+                numberMessages[i + 1] = shuffled[i];
             }
         }
 
@@ -225,14 +225,60 @@
         }
 
         function scratchNumber(button, number) {
-            button.classList.add('scratched');
-            const message = document.getElementById('message');
-            message.textContent = numberMessages[number];
-            message.style.display = 'block';
+            if (!button.classList.contains('scratched')) {
+                button.classList.add('scratched');
+                const message = document.getElementById('message');
+                message.textContent = numberMessages[number];
+                message.style.display = 'block';
+                
+                scratchedCount++;
+                updateProgress();
+                
+                if (scratchedCount === 100) {
+                    showCongratulations();
+                }
+                
+                setTimeout(() => {
+                    message.style.display = 'none';
+                }, 1500);
+            }
+        }
+
+        function updateProgress() {
+            const progressFill = document.querySelector('.progress-fill');
+            const progressText = document.querySelector('.progress-text');
+            const percentage = (scratchedCount / 100) * 100;
+            
+            progressFill.style.width = `${percentage}%`;
+            progressText.textContent = `已刮開: ${scratchedCount}/100`;
+        }
+
+        function showCongratulations() {
+            createFireworks();
+            const congrats = document.createElement('div');
+            congrats.className = 'congratulations';
+            congrats.textContent = '🎉 恭喜得到pearl🎉';
+            document.body.appendChild(congrats);
             
             setTimeout(() => {
-                message.style.display = 'none';
-            }, 1500);
+                congrats.remove();
+            }, 5000);
+        }
+
+        function createFireworks() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.left = Math.random() * window.innerWidth + 'px';
+                    firework.style.top = Math.random() * window.innerHeight + 'px';
+                    document.body.appendChild(firework);
+                    
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 1000);
+                }, i * 200);
+            }
         }
 
         shuffleMessages();
@@ -240,203 +286,4 @@
     </script>
 </body>
 </html>
-
-<!-- 1. 增加刮開動畫效果 -->
-<style>
-.number {
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-}
-
-.scratched {
-    transform: scale(0.9);
-    background: #f0f0f0 !important;
-}
-
-.number:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 200%;
-    height: 100%;
-    background: rgba(255,255,255,0.3);
-    transform: skewX(-20deg);
-    transition: 0.5s;
-}
-
-.scratched:before {
-    left: 100%;
-}
-</style>
-
-<script>
-let scratchedCount = 0;
-
-function playSound() {
-    const audio = new Audio('https://www.soundjay.com/misc/sounds/scratch-1.mp3');
-    audio.play();
-}
-
-function updateCounter() {
-    scratchedCount++;
-    const progressFill = document.querySelector('.progress-fill');
-    const progressText = document.querySelector('.progress-text');
-    const percentage = (scratchedCount / 100) * 100;
-    
-    progressFill.style.width = `${percentage}%`;
-    progressText.textContent = `已刮開: ${scratchedCount}/100`;
-}
-</script>
-
-<style>
-.progress-bar {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    max-width: 600px;
-    height: 30px;
-    background: rgba(26, 26, 26, 0.8);
-    border-radius: 15px;
-    border: 2px solid #ffd700;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
-}
-
-.progress-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(45deg, #ffd700, #ffa500);
-    transition: width 0.3s ease;
-}
-
-.progress-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.scratch-title {
-    text-align: center;
-    font-size: 2.5em;
-    color: #ffd700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    margin: 20px 0;
-    font-weight: bold;
-}
-
-.scratch-subtitle {
-    text-align: center;
-    font-size: 1.2em;
-    color: #ffa500;
-    margin-bottom: 30px;
-}
-
-.firework {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #ffd700, #ff6b6b);
-    animation: explode 1s ease-out forwards;
-    pointer-events: none;
-}
-
-.congratulations {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: #ffd700;
-    padding: 20px 40px;
-    border-radius: 10px;
-    font-size: 24px;
-    z-index: 1000;
-    animation: bounce 0.5s ease infinite alternate;
-}
-
-@keyframes explode {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(20);
-        opacity: 0;
-    }
-}
-
-@keyframes bounce {
-    from {
-        transform: translate(-50%, -50%) scale(1);
-    }
-    to {
-        transform: translate(-50%, -50%) scale(1.1);
-    }
-}
-</style>
-
-<div class="scratch-title">高達100次中獎機會</div>
-<div class="scratch-subtitle">刮開方格，看看您能中多少獎!</div>
-
-<script>
-const progressBar = document.createElement('div');
-progressBar.className = 'progress-bar';
-progressBar.innerHTML = `
-    <div class="progress-fill"></div>
-    <div class="progress-text">已刮開: 0/100</div>
-`;
-document.body.appendChild(progressBar);
-
-const originalScratchNumber = window.scratchNumber;
-window.scratchNumber = function(button, number) {
-    if (!button.classList.contains('scratched')) {
-        originalScratchNumber(button, number);
-        updateCounter();
-        checkCompletion();
-    }
-}
-
-function checkCompletion() {
-    if (scratchedCount === 100) {
-        createFireworks();
-        showCongratulations();
-    }
-}
-
-function createFireworks() {
-    for (let i = 0; i < 10; i++) {
-        setTimeout(() => {
-            const firework = document.createElement('div');
-            firework.className = 'firework';
-            firework.style.left = Math.random() * window.innerWidth + 'px';
-            firework.style.top = Math.random() * window.innerHeight + 'px';
-            document.body.appendChild(firework);
-            
-            setTimeout(() => {
-                firework.remove();
-            }, 1000);
-        }, i * 300);
-    }
-}
-
-function showCongratulations() {
-    const congrats = document.createElement('div');
-    congrats.className = 'congratulations';
-    congrats.innerHTML = '🎉 恭喜得到PEARL🎉';
-    document.body.appendChild(congrats);
-    
-    setTimeout(() => {
-        congrats.remove();
-    }, 5000);
-}
-</script>
 
