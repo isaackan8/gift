@@ -10,34 +10,36 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: #2b2b2b;
-            font-family: Arial, sans-serif;
-            color: white;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="%23ffd700" stroke="%23b8860b" stroke-width="2"/><text x="12" y="16" font-size="12" text-anchor="middle" fill="%23b8860b">$</text></svg>') 12 12, auto;
+            background: #f5f5f7; /* Apple-style light background */
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif; /* Apple system font */
+            color: #1d1d1f;
+            -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
+            cursor: pointer;
         }
         .grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
-            gap: 5px;
-            max-width: 800px;
-            margin: 20px;
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(255,215,0,0.2);
+            gap: 8px; /* Increased gap for better touch targets */
+            max-width: 95vw; /* Responsive width */
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 16px;
+            border-radius: 20px; /* More rounded corners */
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1); /* Subtle shadow */
         }
         .number {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(45deg, #c0c0c0, #808080);
-            border: 2px solid #ffd700;
-            border-radius: 5px;
-            font-size: 20px;
-            color: white;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="%23ffd700" stroke="%23b8860b" stroke-width="2"/><text x="12" y="16" font-size="12" text-anchor="middle" fill="%23b8860b">$</text></svg>') 12 12, pointer;
-            transition: all 0.3s ease;
+            width: calc(9vw - 10px); /* Responsive button size */
+            height: calc(9vw - 10px);
+            background: linear-gradient(145deg, #e6e6e6, #ffffff);
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            color: #1d1d1f;
+            -webkit-tap-highlight-color: transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* iOS-style transition */
             position: relative;
             overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         .number::before {
             content: '';
@@ -49,77 +51,80 @@
             background: linear-gradient(
                 90deg,
                 rgba(255,255,255,0) 0%,
-                rgba(255,255,255,0.2) 50%,
+                rgba(255,255,255,0.4) 50%,
                 rgba(255,255,255,0) 100%
             );
-            transition: 0.5s;
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .number:hover::before {
             left: 100%;
         }
         .number.scratched {
-            background: linear-gradient(45deg, #ffd700, #ffa500);
-            transform: scale(0.95);
+            background: linear-gradient(145deg, #007AFF, #5856D6); /* iOS blue gradient */
+            color: white;
+            transform: scale(0.95) translateY(2px);
         }
         .message {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(255,215,0,0.9);
+            background: rgba(255,255,255,0.95);
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255,215,0,0.5);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
             display: none;
             z-index: 100;
-            color: black;
+            color: #1d1d1f;
             font-size: 18px;
             text-align: center;
-            min-width: 200px;
-            cursor: default;
+            min-width: 280px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         h1 {
-            color: #ffd700;
-            text-shadow: 0 0 10px rgba(255,215,0,0.5);
+            color: #1d1d1f;
+            font-weight: 600;
             margin: 30px 0;
-            cursor: default;
+            font-size: 32px;
+            letter-spacing: -0.5px;
         }
         .progress-bar {
             position: fixed;
-            bottom: 20px;
+            bottom: env(safe-area-inset-bottom, 20px);
             left: 50%;
             transform: translateX(-50%);
-            width: 80%;
+            width: 90%;
             max-width: 600px;
-            height: 30px;
-            background: rgba(26, 26, 26, 0.8);
-            border-radius: 15px;
-            border: 2px solid #ffd700;
+            height: 40px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         .progress-fill {
             height: 100%;
             width: 0%;
-            background: linear-gradient(45deg, #ffd700, #ffa500);
-            transition: width 0.3s ease;
+            background: linear-gradient(90deg, #007AFF, #5856D6);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .progress-text {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: white;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            color: #1d1d1f;
+            font-weight: 600;
         }
         .firework {
             position: fixed;
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background: radial-gradient(circle, #ffd700, #ff6b6b);
-            animation: explode 1s ease-out forwards;
+            background: radial-gradient(circle, #007AFF, #5856D6);
+            animation: explode 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             pointer-events: none;
         }
         .congratulations {
@@ -127,38 +132,23 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: #ffd700;
-            padding: 20px 40px;
-            border-radius: 10px;
+            background: rgba(255,255,255,0.95);
+            color: #1d1d1f;
+            padding: 24px 40px;
+            border-radius: 20px;
             font-size: 24px;
+            font-weight: 600;
             z-index: 1000;
-            animation: bounce 0.5s ease infinite alternate;
-        }
-        @keyframes explode {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(20);
-                opacity: 0;
-            }
-        }
-        @keyframes bounce {
-            from {
-                transform: translate(-50%, -50%) scale(1);
-            }
-            to {
-                transform: translate(-50%, -50%) scale(1.1);
-            }
+            animation: bounce 0.5s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         .lottery-text {
             text-align: center;
-            color: #ffd700;
-            margin: 10px 0;
-            font-size: 1.2em;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            color: #1d1d1f;
+            margin: 8px 0;
+            font-size: 17px;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -257,7 +247,7 @@
             createFireworks();
             const congrats = document.createElement('div');
             congrats.className = 'congratulations';
-            congrats.textContent = '🎉 恭喜得到pearl🎉';
+            congrats.textContent = '🎉 恭喜完成所有刮刮樂！🎉';
             document.body.appendChild(congrats);
             
             setTimeout(() => {
@@ -286,4 +276,4 @@
     </script>
 </body>
 </html>
-
+// End of Selection
